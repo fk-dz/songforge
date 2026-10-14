@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SONGFORGE AI by FATYAK — كلماتك تصبح أغنية</title>
+<meta name="description" content="استوديو عربي للهاتف يولد الغناء والموسيقى عبر ACE-Step 1.5 السحابي. 12 نوعًا و7 تفضيلات صوتية. مجاني ضمن حصة المزود، يحتاج إنترنت، بدون مفتاح API مدفوع.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self' https://ace-step-ace-step-v1-5.hf.space; object-src 'none'; base-uri 'self'">
+<meta name="author" content="FATYAK"><meta name="theme-color" content="#0b0616"><meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<style>
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/font-1.woff2) format('truetype');
+}
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/font-3.woff2) format('truetype');
+}
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(assets/font-0.woff2) format('truetype');
+}
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(assets/font-2.woff2) format('truetype');
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/font-5.woff2) format('truetype');
+}
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(assets/font-6.woff2) format('truetype');
+}
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(assets/font-4.woff2) format('truetype');
+}
+
+
+
+:root{
+  --bg:#07040e; --bg2:#0d0720; --panel:#120b26; --panel2:#171031;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.05);
+  --txt:#f4eefc; --mut:#a99cc4; --dim:#7b6f96;
+  --o:#ff8a00; --p:#ff2d6f; --v:#a855ff; --c:#22e0d6;
+  --grad:linear-gradient(100deg,#ffb020,#ff2d6f 45%,#7b2cff);
+  --r:18px; --shadow:0 24px 60px rgba(0,0,0,.55);
+  --font:'Cairo','Segoe UI',Tahoma,'Noto Naskh Arabic',system-ui,sans-serif;
+  --mono:'Orbitron','Cairo',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--font); color:var(--txt); background:var(--bg);
+  min-height:100vh; overflow-x:hidden; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:''; position:fixed; inset:0; z-index:-2;
+  background:
+    radial-gradient(900px 620px at 88% -8%, rgba(255,45,111,.22), transparent 62%),
+    radial-gradient(780px 620px at 8% 4%, rgba(123,44,255,.24), transparent 60%),
+    radial-gradient(1100px 700px at 50% 108%, rgba(255,138,0,.14), transparent 62%),
+    linear-gradient(180deg,#0a0616,#07040e 60%,#050309);
+}
+body::after{
+  content:''; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(circle at 50% 20%,#000,transparent 78%);
+}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:0;line-height:1.25}
+button{font-family:inherit;cursor:pointer}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#2b1c4d;border-radius:10px}
+::-webkit-scrollbar-track{background:#0a0616}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:60;backdrop-filter:blur(14px);
+  background:linear-gradient(180deg,rgba(7,4,14,.92),rgba(7,4,14,.55));border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:16px;padding:12px 0}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:44px;height:44px;display:block;filter:drop-shadow(0 4px 16px rgba(255,80,60,.45))}
+.brand b{font-family:var(--mono);font-weight:900;letter-spacing:.16em;font-size:17px;display:block}
+.brand span{display:block;font-size:11px;color:var(--dim);letter-spacing:.28em;font-family:var(--mono)}
+.nav .sp{flex:1}
+.nav a.nl{font-size:14px;color:var(--mut);padding:8px 12px;border-radius:10px;transition:.2s}
+.nav a.nl:hover{color:#fff;background:rgba(255,255,255,.06)}
+.badge-free{font-size:11px;font-weight:700;padding:7px 12px;border-radius:999px;color:#08120f;
+  background:linear-gradient(100deg,#39ffa8,#22e0d6);letter-spacing:.04em}
+.dev{font-family:var(--mono);font-size:11px;color:var(--mut);border:1px solid var(--line);padding:7px 12px;border-radius:999px}
+.dev b{color:var(--o)}
+
+/* ---------- hero ---------- */
+.hero{padding:52px 0 26px;text-align:center;position:relative}
+.tag{display:inline-flex;gap:8px;align-items:center;font-size:12.5px;color:var(--mut);
+  border:1px solid var(--line);background:rgba(255,255,255,.03);padding:7px 14px;border-radius:999px;margin-bottom:18px}
+.dot{width:7px;height:7px;border-radius:50%;background:#39ffa8;box-shadow:0 0 12px #39ffa8;animation:pulse 1.8s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.hero h1{font-size:clamp(28px,5.4vw,54px);font-weight:900;letter-spacing:-.5px}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:760px;margin:14px auto 0;color:var(--mut);font-size:clamp(14px,1.6vw,17px);line-height:1.9}
+.stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.stat{border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:14px;padding:10px 16px;min-width:118px}
+.stat b{display:block;font-family:var(--mono);font-size:19px;color:#fff}
+.stat i{font-style:normal;font-size:11.5px;color:var(--dim)}
+
+/* ---------- studio ---------- */
+.studio{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:18px;margin:34px 0 10px}
+@media(max-width:980px){.studio{grid-template-columns:1fr}}
+.card{background:linear-gradient(180deg,rgba(23,16,49,.86),rgba(13,8,30,.9));border:1px solid var(--line);
+  border-radius:var(--r);padding:18px;box-shadow:var(--shadow);position:relative;overflow:clip}
+.card::before{content:'';position:absolute;inset:0 0 auto;height:2px;background:var(--grad);opacity:.75}
+.card h2{font-size:16px;display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.card h2 em{font-style:normal;font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.2em}
+.sub{font-size:12.5px;color:var(--dim);margin:0 0 14px}
+label.lbl{display:block;font-size:12.5px;font-weight:700;color:var(--mut);margin:14px 0 7px;letter-spacing:.02em}
+textarea,input[type=text],select{
+  width:100%;background:#0a0618;color:var(--txt);border:1px solid var(--line);border-radius:13px;
+  padding:13px 14px;font-family:inherit;font-size:15px;line-height:1.85;outline:none;transition:.2s}
+textarea:focus,input:focus,select:focus{border-color:rgba(255,45,111,.6);box-shadow:0 0 0 4px rgba(255,45,111,.12)}
+textarea{min-height:172px;resize:vertical}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--mut) 50%),linear-gradient(135deg,var(--mut) 50%,transparent 50%);
+  background-position:calc(0% + 18px) 21px,calc(0% + 24px) 21px;background-size:6px 6px;background-repeat:no-repeat;padding-inline-end:40px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.row{grid-template-columns:1fr}}
+
+/* genre grid */
+.genres{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:9px}
+.g{border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:13px;padding:11px 8px;text-align:center;
+  transition:.18s;color:var(--mut);font-size:12.5px;font-weight:700;line-height:1.3}
+.g i{display:block;font-style:normal;font-size:19px;margin-bottom:5px;filter:saturate(1.2)}
+.g small{display:block;font-weight:600;font-size:9.5px;color:var(--dim);letter-spacing:.06em;font-family:var(--mono);margin-top:3px}
+.g:hover{transform:translateY(-2px);border-color:rgba(255,138,0,.5);color:#fff}
+.g.on{background:linear-gradient(180deg,rgba(255,45,111,.22),rgba(123,44,255,.2));border-color:rgba(255,80,120,.75);color:#fff;
+  box-shadow:0 8px 26px rgba(255,45,111,.22)}
+/* voice grid */
+.voices{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:9px}
+.v{border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:13px;padding:10px 6px;text-align:center;color:var(--mut);
+  font-size:12px;font-weight:700;transition:.18s}
+.v i{display:block;font-style:normal;font-size:18px;margin-bottom:4px}
+.v small{display:block;font-size:9px;color:var(--dim);margin-top:3px;font-weight:600}
+.v:hover{transform:translateY(-2px);color:#fff;border-color:rgba(34,224,214,.5)}
+.v.on{background:linear-gradient(180deg,rgba(34,224,214,.2),rgba(123,44,255,.18));border-color:rgba(34,224,214,.7);color:#fff}
+
+/* sliders */
+.sl{display:flex;align-items:center;gap:12px}
+.sl input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:6px;border-radius:99px;background:#241742;outline:none}
+.sl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:19px;height:19px;border-radius:50%;
+  background:var(--grad);border:2px solid #150c28;box-shadow:0 2px 10px rgba(255,45,111,.5);cursor:pointer}
+.sl input[type=range]::-moz-range-thumb{width:17px;height:17px;border:2px solid #150c28;border-radius:50%;background:#ff2d6f;cursor:pointer}
+.sl b{font-family:var(--mono);font-size:13px;min-width:62px;text-align:center;color:#fff;background:#1b1035;padding:5px 8px;border-radius:8px}
+.toggles{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.tg{font-size:12px;font-weight:700;color:var(--mut);border:1px solid var(--line);background:rgba(255,255,255,.025);
+  padding:8px 12px;border-radius:999px;transition:.18s;display:flex;gap:7px;align-items:center}
+.tg:hover{color:#fff}
+.tg.on{color:#0b0714;background:linear-gradient(100deg,#ffd166,#ff8a00);border-color:transparent}
+.tg i{font-style:normal}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-size:11.5px;font-weight:700;color:var(--mut);border:1px dashed rgba(255,255,255,.16);padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.02)}
+.chip:hover{color:#fff;border-color:rgba(255,138,0,.6)}
+
+/* buttons */
+.btn{border:0;border-radius:14px;padding:15px 20px;font-size:15.5px;font-weight:800;color:#fff;display:flex;
+  align-items:center;justify-content:center;gap:10px;transition:.2s;width:100%;letter-spacing:.01em}
+.btn.main{background:var(--grad);box-shadow:0 14px 34px rgba(255,45,111,.34)}
+.btn.main:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(255,45,111,.46)}
+.btn.ghost{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--txt)}
+.btn.ghost:hover{background:rgba(255,255,255,.1)}
+.btn.sm{padding:11px 14px;font-size:13.5px;border-radius:12px}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.actions{display:grid;gap:10px;margin-top:18px}
+
+/* player */
+.player{position:sticky;top:80px}
+@media(max-width:980px){.player{position:static}}
+canvas.viz{width:100%;height:132px;display:block;border-radius:14px;background:
+  radial-gradient(120% 100% at 50% 0%,rgba(123,44,255,.18),transparent 70%),#08040f;border:1px solid var(--line)}
+.time{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--mut);margin:9px 2px 0}
+.bar{height:7px;border-radius:99px;background:#1b1035;overflow:hidden;margin-top:8px;cursor:pointer}
+.bar i{display:block;height:100%;width:0;background:var(--grad);transition:width .12s linear}
+.meter{display:flex;gap:5px;align-items:flex-end;height:26px;margin-top:12px}
+.meter s{flex:1;background:#241742;border-radius:3px;height:4px;transition:height .08s}
+.now{margin-top:14px;border:1px solid var(--line);border-radius:14px;padding:13px;background:rgba(255,255,255,.025);min-height:64px}
+.now .k{font-size:10.5px;font-family:var(--mono);letter-spacing:.2em;color:var(--dim)}
+.now .t{font-size:16.5px;font-weight:800;margin-top:5px;color:#fff;line-height:1.7}
+.lyrics{margin-top:12px;max-height:236px;overflow:auto;border:1px solid var(--line);border-radius:14px;background:#08040f;padding:8px}
+.ly{padding:9px 12px;border-radius:10px;font-size:14px;color:#6f6486;line-height:1.85;transition:.2s;border-inline-start:3px solid transparent}
+.ly.on{background:linear-gradient(90deg,rgba(255,45,111,.16),transparent);color:#fff;border-inline-start-color:#ff2d6f;font-weight:700}
+.ly s{text-decoration:none;font-family:var(--mono);font-size:9.5px;color:var(--dim);margin-inline-end:8px}
+
+/* info strip */
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:18px 0}
+.feat{border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:16px;padding:16px}
+.feat i{font-style:normal;font-size:22px;display:block;margin-bottom:8px}
+.feat b{display:block;font-size:14px;margin-bottom:5px}
+.feat p{margin:0;font-size:12.5px;color:var(--dim);line-height:1.8}
+
+/* voices list + log */
+.list{max-height:170px;overflow:auto;border:1px solid var(--line);border-radius:12px;background:#08040f;padding:8px;font-size:12px}
+.list div{padding:5px 8px;border-radius:7px;color:var(--mut)}
+.list div.hit{background:rgba(34,224,214,.12);color:#b9fff8}
+.log{font-family:var(--mono);font-size:10.5px;color:#7b6f96;background:#08040f;border:1px solid var(--line);
+  border-radius:12px;padding:10px;height:96px;overflow:auto;white-space:pre-wrap;direction:ltr;text-align:left;margin-top:12px}
+
+/* toast */
+.toast{position:fixed;inset-inline:0;bottom:24px;margin:auto;width:max-content;max-width:92vw;z-index:99;
+  background:linear-gradient(100deg,#1d1236,#150c28);border:1px solid rgba(255,138,0,.45);color:#fff;
+  padding:13px 20px;border-radius:14px;font-size:13.5px;font-weight:700;box-shadow:0 20px 50px rgba(0,0,0,.6);
+  opacity:0;transform:translateY(14px);transition:.3s;pointer-events:none}
+.toast.on{opacity:1;transform:none}
+
+/* footer */
+footer{margin-top:44px;border-top:1px solid var(--line);padding:34px 0 44px;text-align:center;background:linear-gradient(180deg,transparent,rgba(123,44,255,.07))}
+footer .lg{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:12px}
+footer img{width:52px;height:52px;filter:drop-shadow(0 6px 18px rgba(255,80,60,.4))}
+footer .nm{font-family:var(--mono);font-weight:900;font-size:24px;letter-spacing:.24em;background:var(--grad);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+footer p{color:var(--dim);font-size:12.5px;margin:6px 0;line-height:1.9}
+.sec-title{text-align:center;margin:46px 0 18px}
+.sec-title h2{font-size:clamp(20px,3vw,30px);font-weight:900}
+.sec-title p{color:var(--dim);font-size:13.5px;margin:8px 0 0}
+.qa{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.qa div{border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:16px;padding:16px}
+.qa b{display:block;font-size:14px;margin-bottom:7px;color:#fff}
+.qa p{margin:0;font-size:12.8px;color:var(--dim);line-height:1.9}
+.spin{width:16px;height:16px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.note{font-size:11.5px;color:var(--dim);line-height:1.85;border-inline-start:2px solid rgba(255,138,0,.5);padding:2px 0 2px 10px;margin-top:12px}
+
+/* SONGFORGE AI v2 — local assets, responsive touch UI */
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--c);outline-offset:4px}
+button:disabled{cursor:not-allowed;opacity:.45;transform:none!important}
+html{scroll-behavior:auto;scroll-padding-top:90px}
+.hero{padding:46px 0 28px}.hero h1{font-size:clamp(30px,4.8vw,53px);line-height:1.45}.hero p{font-size:15px;line-height:1.9;max-width:690px}
+.hero .tag{font-size:12px}.ai-spark{color:#ffbc57;font-size:20px;line-height:1}.stats{margin-top:24px}.stat{min-width:125px}.stat i{color:var(--mut)}
+.cloud-banner{display:flex;gap:15px;align-items:center;background:linear-gradient(110deg,rgba(34,224,214,.055),rgba(123,44,255,.1));border:1px solid rgba(34,224,214,.19);border-radius:18px;padding:18px 22px;margin:4px 0 26px}
+.engine-mark{font-size:30px;color:var(--c);flex-shrink:0;background:rgba(34,224,214,.07);width:48px;height:48px;display:grid;place-items:center;border:1px solid rgba(34,224,214,.14);border-radius:14px}
+.engine-copy{flex:1}.engine-copy b{font-size:14px}.engine-copy p{font-size:12px;color:var(--mut);line-height:1.9;margin:3px 0 0;max-width:650px}
+.cloud-check{display:flex;gap:9px;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:999px;color:var(--mut);background:#100b20;padding:11px 15px;font-size:11px;min-height:44px;max-width:240px;text-align:right}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#81768e;flex-shrink:0}.status-dot.ok{background:var(--c);box-shadow:0 0 10px #22e0d650}.status-dot.bad{background:#ff778f}
+.studio{margin:0 0 24px;align-items:start;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:22px}
+.controls{padding:25px}.card{border-radius:20px}.studio-side{min-width:0;display:flex;flex-direction:column;gap:20px}.player{position:relative;top:0;padding:22px}
+.section-heading{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap}.section-heading h2{margin:0;font-size:15px;gap:8px}.section-heading h2 em{font-size:9px}
+.step{font-family:var(--mono);font-size:10px;background:#26143c;color:#ffc376;border:1px solid #ff9d3828;border-radius:7px;display:grid;place-items:center;width:25px;height:26px;flex-shrink:0}
+.gap-top{margin-top:30px}.sub{line-height:1.85;font-size:12px;color:var(--mut)}.mini-pill{font-size:9px;border:1px solid var(--line);background:#ffffff04;border-radius:99px;padding:3px 9px;color:var(--mut)}
+.label-row{display:flex;align-items:center;justify-content:space-between;gap:8px}.label-row .lbl{margin-top:10px}.counter{font-size:10px;font-family:var(--font);color:var(--dim);direction:ltr}.optional{font-weight:400;color:var(--dim);font-size:10px;margin-inline-start:5px}
+#lyrics{min-height:205px;font-size:15px;line-height:2.1}#styleNote{min-height:82px;font-size:13px}.chips{margin-top:10px;gap:6px}.chip{font-family:inherit;font-size:10px;padding:6px 10px;min-height:34px}
+.genres{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.g{min-height:94px;padding:11px 5px;font-size:11px;position:relative}.g .ico{width:23px;height:23px;display:block;margin:0 auto 9px;color:#aaa0c1}.g.on .ico{color:#ffc899}.g small{font-size:7px;letter-spacing:.05em}.g.on:after{content:'';position:absolute;inset-inline-end:7px;top:7px;width:4px;height:4px;border-radius:50%;background:#ff9567}
+.voices{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}.v{min-height:83px;font-size:10px}.v .ico{width:22px;height:22px;margin:0 auto 6px;display:block;color:#b4a8d3}.v.on .ico{color:var(--c)}.v small{font-size:8px;line-height:1.7}
+.voices.muted{opacity:.36;pointer-events:none}.note{font-size:11px;line-height:1.95;color:var(--mut);padding:2px 10px 2px 0}.row{gap:12px}.lbl{font-size:12px!important}select{font-size:12px;min-height:49px;line-height:1.8;padding:11px 13px}input[type=range]{direction:ltr}.sl b{font-size:10px;white-space:nowrap}
+.toggles{margin-top:16px}.tg{font-size:11px;min-height:41px}.length-tip{font-size:11px;line-height:1.9;margin:12px 0;color:var(--dim)}.length-tip.warn{color:#ffd08a}
+.advanced{margin-top:20px;border-top:1px solid var(--line);padding-top:14px;font-size:12px;color:var(--mut)}summary{cursor:pointer;min-height:32px;line-height:1.9}.advanced summary{font-size:11px}.check-line{display:flex;gap:10px;align-items:start;line-height:1.9;margin:15px 0}.check-line small{display:block;color:var(--dim);font-size:10px}.check-line input,.consent input{width:17px;height:17px;flex-shrink:0;accent-color:#ff6d5c;margin-top:5px}
+.prompt-view{white-space:pre-wrap;word-break:break-word;background:#08040f;padding:12px;border-radius:10px;border:1px solid var(--line);font-size:11px;line-height:1.9;max-height:210px;overflow:auto;color:var(--mut);text-align:left}
+.consent{display:flex;align-items:start;gap:10px;background:#ffb02007;border:1px solid #ffb02020;border-radius:13px;padding:12px 14px;margin-top:20px;font-size:11px;line-height:2;color:var(--mut)}.consent b{font-weight:600;color:#e2c19c}
+.actions{margin-top:16px;display:grid;gap:10px}.btn.main{min-height:55px;font-size:14px}.btn.ghost{min-height:45px;font-size:11px;line-height:1.8}.under-button{text-align:center;font-size:10px;color:var(--dim);line-height:1.9;margin:10px 8px 0}
+.generation-status{margin-top:18px;background:#120d23;border:1px solid #a855ff40;padding:14px;border-radius:13px}.status-heading{display:flex;align-items:center;gap:9px}.status-heading b{font-size:12px;flex:1}.status-heading time{font-family:var(--mono);font-size:10px;color:var(--mut)}.generation-status p{font-size:11px;color:var(--mut);line-height:1.8;overflow-wrap:anywhere}.generation-status.error{border-color:#ff617355;background:#ff2d6f08}.generation-status.success{border-color:#22e0d645}.generation-status summary{font-size:11px;color:#ffadad}.generation-status pre{font:10px/1.7 monospace;direction:ltr;text-align:left;white-space:pre-wrap;overflow-wrap:anywhere;max-height:140px;overflow:auto}
+.indeterminate{height:3px;background:#2b1749;overflow:hidden;border-radius:99px;margin-top:12px}.indeterminate i{display:block;width:40%;height:100%;background:var(--grad);animation:loading 2s ease-in-out infinite}@keyframes loading{from{transform:translateX(-120%)}to{transform:translateX(350%)}}
+.fallback{margin-top:13px;padding:14px;border:1px solid #ffbf4940;border-radius:13px;background:#ffbf4906}.fallback b{font-size:12px;color:#ffca85}.fallback p{font-size:11px;color:var(--mut);line-height:1.95}.fallback .grid2{gap:8px}
+.track-cover{height:280px;margin:18px 0 16px;border-radius:15px;background:radial-gradient(ellipse at 75% 5%,#8f246e70,transparent 65%),radial-gradient(ellipse at 0% 100%,#ff883b35,transparent 60%),linear-gradient(130deg,#19102d,#100a20);position:relative;overflow:hidden;border:1px solid #ffffff0c}.track-cover:before{content:'';position:absolute;width:220px;height:220px;border:35px solid #ffffff04;inset-inline-end:-55px;top:-80px;transform:rotate(25deg);border-radius:40%}.track-cover img{position:absolute;width:90px;height:90px;top:35px;inset-inline-start:30px;filter:drop-shadow(0 0 18px #ff4c7d25)}.cover-top{position:absolute;top:22px;inset-inline-end:20px;writing-mode:vertical-lr;font-family:var(--mono);font-size:8px;letter-spacing:.18em;color:#c6aacd8c}.cover-bottom{position:absolute;bottom:23px;inset-inline:25px}.cover-bottom small{font-family:var(--mono);font-size:8px;letter-spacing:.14em;color:#d3a0af}.cover-bottom h3{font-size:22px;line-height:1.6;margin:5px 0 0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.cover-bottom p{font-size:11px;color:var(--mut);margin:4px 0 0}.cover-orbit{width:220px;height:220px;border:1px solid #b981be26;position:absolute;border-radius:50%;top:60px;inset-inline-end:-100px}.cover-orbit:after,.cover-orbit:before{content:'';position:absolute;inset:20px;border:1px solid #b981be26;border-radius:50%}.cover-orbit:after{inset:40px}
+audio{width:100%;height:46px;margin:10px 0 0;direction:ltr;color-scheme:dark}canvas.viz{height:80px;border-radius:12px}.result-note{font-size:10px}.import-box{margin-top:18px;border:1px dashed #ffffff20;border-radius:12px;padding:7px}.import-label{font-size:11px;padding:10px;color:var(--mut);font-weight:600;min-height:42px;cursor:pointer}.import-label:hover{color:#fff}.import-box p{text-align:center;color:var(--dim);font-size:9px;margin:0 4px 5px}.lyrics-details{font-size:12px;margin-top:18px;color:var(--mut)}.lyrics-details pre{white-space:pre-wrap;line-height:2.1;font-family:var(--font);font-size:13px;max-height:300px;overflow:auto}
+.library{padding:21px}.library h2{font-size:13px}.empty-library{font-size:12px;color:var(--dim);padding:18px 6px}.history-item{display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line2)}.history-play{width:39px;height:39px;border-radius:11px;background:linear-gradient(130deg,#ff8a0025,#ff2d6f15,#7b2cff35);border:1px solid #ffffff14;color:#ffd08a;font-size:12px;flex-shrink:0}.history-copy{flex:1;min-width:0}.history-copy b{font-size:12px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.history-copy small{display:block;font-size:9px;color:var(--dim);margin-top:4px}.history-delete{background:transparent;border:0;color:var(--dim);width:35px;height:38px;font-size:16px}.history-delete:hover{color:#ff778f}
+.studio-tip{display:flex;align-items:start;gap:14px;padding:4px 14px;color:var(--mut)}.studio-tip>span{color:#ffc274;font-size:26px}.studio-tip b{font-size:12px}.studio-tip p{font-size:11px;color:var(--dim);line-height:1.9;margin:5px 0}.sources{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin:24px 0;color:var(--mut);font-size:11px}.sources a{border-bottom:1px solid var(--line);padding-bottom:3px}.sources a:hover{color:var(--c)}
+@media(max-width:980px){.studio{grid-template-columns:1fr}.controls{padding:22px}.studio-side{display:grid;grid-template-columns:1fr 1fr;align-items:start}.studio-side>.player{grid-row:span 2}.studio-tip{grid-column:2}.genres{grid-template-columns:repeat(4,minmax(0,1fr))}.voices{grid-template-columns:repeat(4,minmax(0,1fr))}.nav .nl{font-size:12px;padding:6px}.track-cover{height:255px}}
+@media(max-width:700px){.nav{gap:10px;padding:12px 0}.nav .nl,.nav .dev{display:none}.wrap{padding-inline:16px}.brand{gap:8px}.brand img{width:37px;height:37px}.brand b{font-size:13px;letter-spacing:.1em}.brand span{font-size:9px}.badge-free{font-size:9px;padding:8px 10px;letter-spacing:0;white-space:nowrap}.hero{padding:34px 0 24px}.hero .tag{font-size:10px;padding:5px 10px;margin-bottom:12px}.hero h1{font-size:31px;line-height:1.5}.hero p{font-size:12px;line-height:2.1;margin-top:12px}.stats{gap:7px;margin-top:20px}.stat{min-width:0;flex:1;padding:9px 5px}.stat b{font-size:16px}.stat i{font-size:9px}.cloud-banner{padding:15px;gap:12px;flex-wrap:wrap;margin-bottom:20px}.engine-mark{width:38px;height:38px;border-radius:11px;font-size:24px}.engine-copy{flex-basis:calc(100% - 55px)}.engine-copy b{font-size:12px}.engine-copy p{font-size:10px}.cloud-check{margin-inline-start:50px;font-size:10px;padding:8px 12px;min-height:37px}.studio-side{display:flex}.studio-tip{display:flex}.controls,.player{padding:18px}.section-heading h2{font-size:14px}.section-heading h2 em{font-size:8px}.section-heading .mini-pill{display:none}.sub{font-size:11px}.g{font-size:10px;min-height:88px}.g small{font-size:6.5px}.voices{grid-template-columns:repeat(3,minmax(0,1fr))}.v{font-size:10px}.voices>.v:last-child{grid-column:auto}.row{grid-template-columns:1fr 1fr!important;gap:10px}.lbl{font-size:11px!important}select{font-size:11px;padding-inline-start:10px}#lyrics{min-height:208px;font-size:14px}.track-cover{height:280px}.qa{grid-template-columns:1fr}.qa p{font-size:12px}.strip{grid-template-columns:1fr 1fr;gap:10px}.feat{padding:14px}.feat b{font-size:12px}.feat p{font-size:10px;line-height:1.9}.feat i{font-size:20px}.btn.main{font-size:12px;min-height:54px}.consent{font-size:10px;padding:10px 12px}.prompt-view{font-size:10px}.sources{font-size:10px;gap:12px}.history-copy b{font-size:12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+
+input[type=password]{width:100%;background:#0a0618;color:var(--txt);border:1px solid var(--line);border-radius:12px;padding:12px;font:13px/1.8 monospace;outline:none}.token-row{display:flex;gap:8px}.token-row input{min-width:0}.token-row button{flex-shrink:0;width:52px;margin:0;min-width:48px}.token-clear{font:11px var(--font);color:var(--mut);border:1px solid var(--line);border-radius:12px;background:#100b20;min-height:44px}.auth-message{font-size:10px;line-height:1.9;color:var(--c)}.account a{color:var(--c);text-decoration:underline;text-underline-offset:3px}.account{padding:12px;border:1px solid var(--line);border-radius:12px;margin-top:16px}.account summary{font-size:11px}
+</style>
+</head><body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="SONGFORGE by FATYAK"><img src="logo.svg" alt="شعار FATYAK"><span><b>SONGFORGE</b><span>BY FATYAK</span></span></a>
+    <div class="sp"></div><a class="nl" href="#studio">الاستوديو</a><a class="nl" href="#library">مكتبتي</a><a class="nl" href="#faq">كيف يعمل؟</a>
+    <span class="badge-free">AI حقيقي · حصة مجانية</span><span class="dev">DEV <b>FATYAK</b></span>
+  </div>
+</header>
+<main class="wrap" id="top">
+  <section class="hero">
+    <span class="tag"><span class="ai-spark">✦</span> الجيل الثاني · الغناء والموسيقى من نموذج واحد</span>
+    <h1>كلماتك. إحساسك.<br><span class="grad">أغنيتك بالذكاء الاصطناعي.</span></h1>
+    <p>غناء لحني وآلات وإيقاع يُولَّدون معًا عبر <b dir="ltr">ACE-Step 1.5</b>.<br>صمّم أغنيتك من هاتفك — دون تنزيل نموذج ثقيل، ودون مفتاح API مدفوع.</p>
+    <div class="stats"><div class="stat"><b>12</b><i>اتجاهًا موسيقيًا</i></div><div class="stat"><b>7</b><i>تفضيلات صوتية</i></div><div class="stat"><b>AI</b><i>غناء + موسيقى</i></div><div class="stat"><b>MP3</b><i>النتيجة بصوت المغني</i></div></div>
+  </section>
+
+  <section class="cloud-banner" aria-label="محرك التوليد">
+    <div class="engine-mark" aria-hidden="true">✦</div>
+    <div class="engine-copy"><b>محرك سحابي، وهاتفك مرتاح.</b><p>الواجهة تعمل على هاتفك، والتوليد لدى Hugging Face. المجانية محدودة بحصة المزود وتوفّر الحوسبة؛ ليست غير محدودة.</p></div>
+    <button id="checkCloud" class="cloud-check" type="button"><span class="status-dot" id="cloudDot"></span><span id="cloudText">فحص الاتصال</span></button>
+  </section>
+
+  <section class="studio" id="studio">
+    <div class="card controls">
+      <div class="section-heading"><h2><span class="step">01</span> كلمات تُغنّى <em>LYRICS</em></h2><span class="mini-pill">استوديو الإنشاء</span></div>
+      <p class="sub">اكتب جُملًا قصيرة بإحساس واضح. نحافظ على التشكيل لتحسين النطق العربي.</p>
+      <div class="label-row"><label class="lbl" for="lyrics">كلمات الأغنية</label><span class="counter" id="charCount">0 / 3000</span></div>
+      <textarea id="lyrics" maxlength="3000" spellcheck="false" placeholder="اكتب كلماتك هنا…&#10;يمكنك استخدام [Verse] و [Chorus] لترتيب المقاطع." rows="7"></textarea>
+      <div class="chips" id="demos"><button class="chip" type="button" data-demo="epic">ملحمة الشمال</button><button class="chip" type="button" data-demo="rock">روك عربي</button><button class="chip" type="button" data-demo="love">حب وشوق</button><button class="chip" type="button" data-demo="rap">راب</button><button class="chip" type="button" data-demo="kids">للأطفال</button><button class="chip" type="button" data-demo="clear">تفريغ</button></div>
+      <div class="section-heading gap-top"><h2><span class="step">02</span> عالم الأغنية <em>STYLE</em></h2></div>
+      <p class="sub">اختيارك يوجّه التوزيع والآلات والجو العام للنموذج، وليس إيقاعًا مبرمجًا جاهزًا.</p>
+      <div class="genres" id="genres" role="group" aria-label="اختيار النوع الموسيقي"></div>
+      <label class="lbl" for="styleNote">لمستك الخاصة <span class="optional">اختياري</span></label>
+      <textarea id="styleNote" maxlength="500" rows="2" placeholder="مثال: بداية هادئة، طبول حربية ضخمة، ثم لازمة ملحمية…"></textarea>
+
+      <div class="section-heading gap-top"><h2><span class="step">03</span> شخصية الصوت <em>VOCALS</em></h2></div>
+      <div class="voices" id="voices" role="group" aria-label="تفضيل الصوت الغنائي"></div>
+      <p class="note">تفضيلات نرسلها للنموذج وليست أصواتًا ثابتة أو استنساخًا لأشخاص. دقّة العربية، وصوت الطفل، والتناوب بين المغنين قد تختلف من نتيجة لأخرى.</p>
+      <div class="toggles"><button class="tg" id="instrumental" type="button" aria-pressed="false">موسيقى فقط</button><button class="tg" id="harmony" type="button" aria-pressed="false">هارموني وكورال</button></div>
+
+      <div class="section-heading gap-top"><h2><span class="step">04</span> إعدادات الإنتاج <em>PRODUCTION</em></h2></div>
+      <div class="row">
+        <div><label class="lbl" for="duration">مدة المقطع</label><select id="duration"><option value="30">30 ثانية — تجربة أولى</option><option value="60" selected>60 ثانية</option><option value="90">90 ثانية</option><option value="120">دقيقتان — حوسبة أكثر</option></select></div>
+        <div><label class="lbl" for="language">لغة الغناء</label><select id="language"><option value="auto">تلقائي من الكلمات</option><option value="ar">العربية</option><option value="fr">الفرنسية</option><option value="en">الإنجليزية</option></select></div>
+      </div>
+      <div class="row">
+        <div><label class="lbl" for="quality">النموذج</label><select id="quality"><option value="best">XL — أولوية للجودة</option><option value="fast">Turbo — أخف وأسرع عادةً</option></select></div>
+        <div><label class="lbl" for="structure">ترتيب الكلمات</label><select id="structure"><option value="auto">مقطع + لازمة من كلماتك</option><option value="keep">إرسال النص كما كتبته</option></select></div>
+      </div>
+      <label class="lbl" for="tempo">سرعة الإيقاع المطلوبة <span class="optional">توجيه للنموذج</span></label><div class="sl"><input type="range" id="tempo" min="60" max="190" value="92"><b id="tempoV">92 BPM</b></div>
+      <p class="length-tip" id="lengthTip"></p>
+      <details class="advanced"><summary>خيارات متقدمة ومعاينة طلب التوليد</summary>
+        <label class="check-line"><input id="thinking" type="checkbox"><span>تفكير موسيقي إضافي <small>أبطأ وقد يستهلك وقتًا أكبر من الحصة المجانية.</small></span></label>
+        <label class="lbl" for="seed">بذرة التوليد <span class="optional">فارغة = نتيجة جديدة</span></label><input type="text" id="seed" inputmode="numeric" maxlength="10" placeholder="عشوائي">
+        <p class="note">وصف النوع والصوت بالإنجليزية يساعد في توجيه النموذج؛ تبقى كلمات الأغنية بلغتها الأصلية.</p>
+        <pre class="prompt-view" id="promptView" dir="ltr"></pre>
+      </details>
+      <details class="advanced account" id="accountOptions"><summary>حصة حسابك المجاني بدل الحصة المجهولة <span class="optional">اختياري</span></summary>
+        <p class="note">قد تنفد الحصة المجهولة أو لا تكفي لمدة الحوسبة المطلوبة. يمكنك التوليد من <a href="https://huggingface.co/spaces/ACE-Step/Ace-Step-v1.5" target="_blank" rel="noopener noreferrer">الاستوديو الرسمي ↗</a> بعد تسجيل الدخول، أو إدخال رمز Hugging Face محدود الصلاحية هنا لاستخدام حصة حسابك في الطلب المباشر. <b>لا ترسل الرمز في أي محادثة.</b></p>
+        <label class="lbl" for="hfToken">رمز حساب Hugging Face <span class="optional">لهذه الصفحة فقط</span></label>
+        <div class="token-row"><input id="hfToken" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="190" placeholder="hf_…" dir="ltr"><button type="button" id="clearToken" class="token-clear">مسح</button></div>
+        <p class="auth-message" id="authMessage" role="status">لا يوجد رمز. سيُجرَّب الاتصال المجهول بحصته المحدودة.</p>
+        <p class="note">الرمز يُرسل فقط إلى الاستوديو الرسمي عبر HTTPS، ولا يُحفظ في المسودة أو المكتبة أو ملفات التنزيل. لا تمنحه صلاحيات كتابة أو وصول لملفات خاصة. سجّل الدخول وأنشئ رمزًا محدودًا من <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener noreferrer">إعدادات حسابك ↗</a> إن أردت. حصص الحساب وشروط المزود تبقى سارية؛ لا يوجد تجاوز للحدود.</p>
+      </details>
+      <label class="consent"><input type="checkbox" id="cloudConsent"><span>أوافق على إرسال الكلمات والوصف إلى خدمة ACE-Step العامة لدى Hugging Face للتوليد. <b>لا أضع معلومات حساسة في النص.</b></span></label>
+      <div class="actions"><button class="btn main" id="make" type="button"><span aria-hidden="true">✦</span><span id="makeLabel">ولّد أغنيتي بالذكاء الاصطناعي</span></button><button class="btn ghost sm" id="cancel" type="button" hidden>إلغاء متابعة الطلب</button></div>
+      <p class="under-button">لا نطلب بطاقة دفع. قد يلزم حساب مجاني ورمز اختياري للطلب المباشر. لا يُحفظ الرمز، والتوليد يخضع دائمًا لحصة المزود.</p>
+      <section class="generation-status" id="generationStatus" role="status" aria-live="polite" hidden>
+        <div class="status-heading"><span class="spin" id="statusSpin"></span><b id="statusTitle"></b><time id="elapsed">00:00</time></div>
+        <div class="indeterminate" id="statusBar"><i></i></div><p id="statusDetail"></p>
+        <details id="errorDetail" hidden><summary>تفاصيل ردّ المزود</summary><pre id="errorRaw"></pre></details>
+      </section>
+      <section class="fallback" id="fallback" hidden>
+        <b>يمكنك المتابعة من الاستوديو الرسمي</b><p>إذا تعذّر التوليد المباشر: انسخ وصف الأغنية وكلماتها، افتح الخدمة وسجّل الدخول فيها إن طُلب، ثم نزّل النتيجة واستوردها هنا. تسجيل الدخول في الموقع الرسمي لا يسجّل دخولك هنا تلقائيًا. لربط الطلب المباشر استخدم خيار رمز الحساب أعلاه. لا نتجاوز حصتك.</p>
+        <div class="grid2"><button class="btn ghost sm" id="copyRequest" type="button">نسخ الطلب كاملًا</button><a class="btn ghost sm" href="https://huggingface.co/spaces/ACE-Step/Ace-Step-v1.5" target="_blank" rel="noopener noreferrer">فتح الخدمة الرسمية ↗</a></div>
+      </section>
+    </div>
+
+    <aside class="studio-side">
+      <section class="card player" id="player">
+        <div class="section-heading"><h2><span class="step">05</span> استمع إلى النتيجة <em>YOUR TRACK</em></h2><span class="mini-pill" id="resultBadge">بانتظار الإبداع</span></div>
+        <div class="track-cover"><div class="cover-orbit" aria-hidden="true"></div><img src="logo.svg" alt=""><span class="cover-top">SONGFORGE / AI STUDIO</span><div class="cover-bottom"><small>CREATED WITH FATYAK</small><h3 id="trackTitle">صوتٌ لم تسمعه بعد.</h3><p id="trackSubtitle">كلماتك هي البداية.</p></div></div>
+        <p class="sub" id="songMeta">لا توجد نتيجة بعد. التوليد الحقيقي يتم على خادم المزود، لا داخل هاتفك.</p>
+        <canvas class="viz" id="viz" width="900" height="150" aria-label="مؤشر الصوت"></canvas>
+        <audio id="audio" controls preload="metadata" aria-label="تشغيل الأغنية المولّدة"></audio>
+        <p class="note result-note" id="resultNote">ستحصل على ملف واحد يضم الغناء والموسيقى. لا يُضاف أي نطق آلي أثناء التشغيل.</p>
+        <div class="actions"><button class="btn main" id="download" disabled type="button">تنزيل الأغنية</button><div class="grid2"><button class="btn ghost sm" id="downloadWav" disabled type="button">تحويل وتنزيل WAV</button><button class="btn ghost sm" id="downloadLyrics" disabled type="button">تنزيل الكلمات TXT</button></div></div>
+        <div class="import-box"><label class="btn import-label" for="importAudio">＋ استيراد نتيجة صوتية من جهازك</label><input type="file" id="importAudio" accept="audio/*,.mp3,.wav,.flac,.m4a,.ogg" hidden><p>لا يرفع الاستيراد الملف إلى أي خادم.</p></div>
+        <details class="lyrics-details"><summary>عرض كلمات هذا المقطع</summary><pre id="resultLyrics">ستظهر الكلمات هنا بعد التوليد.</pre></details>
+      </section>
+      <section class="card library" id="library"><div class="section-heading"><h2>مكتبتي على هذا الجهاز <em>RECENT</em></h2></div><p class="sub">آخر 5 نتائج محفوظة محليًا إن سمح المتصفح. نزّل ما تريد الاحتفاظ به؛ مسح بيانات الموقع يزيل المكتبة.</p><div id="historyList"><p class="empty-library">أول أغنية لك ستكون هنا.</p></div></section>
+      <section class="studio-tip"><span aria-hidden="true">✦</span><div><b>لنتيجة أفضل من أول مرة</b><p>جرّب 30 ثانية مع 4–6 أسطر، وصِف إحساسًا واحدًا واضحًا. اسمع النتيجة أولًا، ثم زِد المدة. الذكاء الاصطناعي قد يحتاج أكثر من محاولة.</p></div></section>
+    </aside>
+  </section>
+
+  <section class="strip" id="how"><div class="feat"><i>✦</i><b>نموذج موسيقي حقيقي</b><p>ACE-Step يولّد الملف الصوتي بالغناء والتوزيع معًا. أزلنا النطق الآلي ومحرك الإيقاع القديم من مسار الإنشاء.</p></div><div class="feat"><i>◉</i><b>مصمّم للهاتف</b><p>لا تنزيل لأوزان نموذج ولا تشغيل GPU على OPPO A77. الهاتف يرسل الوصف ويشغّل النتيجة؛ ستحتاج إلى اتصال بالإنترنت.</p></div><div class="feat"><i>↗</i><b>شفافية، لا وعود وهمية</b><p>تُرسل كلماتك للمزود. الخدمة المجانية قد تتوقف أو تطلب تسجيل الدخول، ولا نضمن جودة SUNO أو ضبط كل صوت بدقة.</p></div><div class="feat"><i>↓</i><b>الأغنية في ملفك</b><p>نزّل نتيجة المزود الأصلية بالغناء والموسيقى، أو حوّلها إلى WAV محليًا. التحويل لا يرفع جودة المصدر ويستهلك ذاكرة أكبر.</p></div></section>
+  <div class="sec-title" id="faq"><h2>قبل أن تضغط «توليد»</h2><p>إجابات واضحة عن المحرك والمجانية</p></div>
+  <section class="qa"><div><b>هل أصبح الغناء ذكاءً اصطناعيًا فعلًا؟</b><p>نعم في مسار التوليد الجديد: نرسل الكلمات والوصف لنموذج ACE-Step ونشغّل الملف الذي يعيده فقط. نجاح الاتصال لا يعني أن الأغنية اكتملت؛ لا يظهر تنزيل النتيجة إلا بعد وصول ملف قابل للتشغيل.</p></div><div><b>هل هو مثل SUNO تمامًا؟</b><p>هو نموذج مختلف يولّد الغناء والموسيقى. لا نضمن مماثلة SUNO، أو إتقان كل كلمة عربية، أو الحصول على ثنائي أو صوت طفل مضبوط في كل محاولة.</p></div><div><b>هل المجانية غير محدودة؟</b><p>لا. لا نفرض رسومًا ولا نطلب API مدفوعًا. الاتصال المجهول محدود وقد لا تكفي حصته؛ يمكن استخدام حساب مجاني في الخدمة الرسمية أو رمز محدود له هنا. المعالجة لدى خدمة عامة تخضع لحصتها وطابورها وشروطها. قد يلزم حساب مجاني في الموقع الرسمي، وقد تتغير الحدود.</p></div><div><b>هل تبقى الكلمات داخل هاتفي؟</b><p>المسودة والمكتبة محليتان. عند طلب التوليد تُرسل الكلمات والوصف والإعدادات إلى Hugging Face وACE-Step. لا ترسل معلومات حساسة. استيراد ملف صوتي وتحويله إلى WAV يتمان محليًا.</p></div></section>
+  <div class="sources"><a href="https://github.com/ace-step/ACE-Step-1.5" target="_blank" rel="noopener noreferrer">المحرك مفتوح المصدر ↗</a><a href="https://huggingface.co/docs/hub/spaces-zerogpu" target="_blank" rel="noopener noreferrer">حدود الحوسبة المجانية ↗</a><a href="https://huggingface.co/privacy" target="_blank" rel="noopener noreferrer">خصوصية مزود التوليد ↗</a></div>
+</main>
+<footer><div class="wrap"><div class="lg"><img src="logo.svg" alt="شعار FATYAK"><span class="nm">FATYAK</span></div><p><b>SONGFORGE AI</b> — استوديو الكلمات إلى موسيقى · إصدار 2.0</p><p>تطوير وتصميم: <b style="color:#ffb020">FATYAK</b> © 2026</p><p style="opacity:.7">واجهة مستقلة · توليد ACE-Step عبر Hugging Face · غير تابع لـ SUNO</p></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="cloud.js" defer></script><script src="app.js" defer></script>
+
+</body></html>
